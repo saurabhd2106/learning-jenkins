@@ -8,6 +8,14 @@ pipeline {
             }
         }
 
+        stage('Run Sonarqube analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh 'mvn sonar:sonar'
+                }
+            }
+        }
+
         stage('Build, test and publish') {
             steps {
                 sh 'mvn package'
